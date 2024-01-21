@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navbar } from "./Navbar";
 import { Users } from "./Users";
 import { IoMdAdd } from "react-icons/io";
 
-export const Sidebar = ({ socket, setReceiver }) => {
+import { addUsers } from "../redux/chatUsersSlice";
+
+export const Sidebar = ({ socket }) => {
   const [user, setUser] = useState("");
   const [show, setShow] = useState(false);
   const [newUser, setNewUser] = useState("");
+  const dispatch = useDispatch();
   const newUserRef = useRef(null);
+
+  const { users } = useSelector((state) => state.chatUsersSlice);
 
   useEffect(() => {
     const userName = localStorage.getItem("userName");
@@ -18,9 +24,9 @@ export const Sidebar = ({ socket, setReceiver }) => {
 
   const handleAdd = async () => {
     setShow(false);
-    console.log("New User", newUser);
-    setReceiver(newUser);
+    dispatch(addUsers({ chatUser: newUser, messages: [] }));
     setNewUser("");
+    console.log("users", users);
   };
 
   const handleCancel = () => {
@@ -38,8 +44,9 @@ export const Sidebar = ({ socket, setReceiver }) => {
       <Navbar user={user} />
       {!show ? (
         <div className="max-h-[90vh] md:max-h-[70vh] overflow-x-scroll">
-          <Users />
-          <Users />
+          {users.map((user, index) => (
+            <Users key={index} user={user} />
+          ))}
         </div>
       ) : (
         <div className="flex flex-col gap-1 p-5">

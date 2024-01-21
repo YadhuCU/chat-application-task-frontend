@@ -1,3 +1,8 @@
+import { Login } from "../components/Login";
 export const Auth = () => {
-  return <div>Auth</div>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 };

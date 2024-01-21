@@ -1,20 +1,34 @@
+/* eslint-disable react/prop-types */
 import { IoIosSend } from "react-icons/io";
 import { useState, useRef, useEffect } from "react";
 
 import { Navbar } from "./Navbar";
 
-export const MessageArea = () => {
+export const MessageArea = ({ socket, receiver }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const currentMessageRef = useRef(null);
 
   useEffect(() => {
     currentMessageRef.current.focus();
-  }, []);
+    socket.on("receive_message", (data) => {
+      console.log("Received Message: ", data);
+    });
+  }, [socket]);
 
   const sendMessage = () => {
     currentMessageRef.current.focus();
     setCurrentMessage("");
-    console.log(currentMessage);
+    const author = localStorage.getItem("userName");
+    const newChat = {
+      room: receiver,
+      author: author,
+      message: currentMessage,
+      time:
+        new Date(Date.now()).getHours() +
+        ":" +
+        new Date(Date.now()).getMinutes(),
+    };
+    socket.emit("send_message", newChat);
   };
 
   return (

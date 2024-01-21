@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState, useRef } from "react";
 import { Navbar } from "./Navbar";
 import { Users } from "./Users";
 import { IoMdAdd } from "react-icons/io";
 
-export const Sidebar = () => {
+export const Sidebar = ({ socket, setReceiver }) => {
   const [user, setUser] = useState("");
   const [show, setShow] = useState(false);
   const [newUser, setNewUser] = useState("");
@@ -12,11 +13,13 @@ export const Sidebar = () => {
   useEffect(() => {
     const userName = localStorage.getItem("userName");
     setUser(userName);
+    socket.emit("join_room", userName);
   }, []);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     setShow(false);
     console.log("New User", newUser);
+    setReceiver(newUser);
     setNewUser("");
   };
 

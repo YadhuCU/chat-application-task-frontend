@@ -14,6 +14,7 @@ export const Navbar = ({ user, messageArea }) => {
   const handleLogout = () => {
     navigate("/");
     localStorage.setItem("userName", "");
+    window.location.reload();
   };
 
   return (

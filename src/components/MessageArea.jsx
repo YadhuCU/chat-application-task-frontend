@@ -69,7 +69,7 @@ export const MessageArea = ({ socket }) => {
       {Object.keys(currentChatUser).length != 0 ? (
         <div className="flex flex-col relative">
           <Navbar messageArea user={currentChatUser.chatUser} />
-          <div className="h-[80vh] md:h-[70vh] p-5 flex gap-1 flex-col overflow-x-scroll ">
+          <div className="h-[80vh] md:h-[70vh] p-5 flex gap-1 flex-col overflow-y-scroll ">
             {/* message from them */}
             {currentChatUser?.messages?.length > 0
               ? currentChatUser.messages.map((item, index) => (

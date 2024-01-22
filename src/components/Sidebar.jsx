@@ -46,7 +46,7 @@ export const Sidebar = ({ socket }) => {
     >
       <Navbar user={user} />
       {!show ? (
-        <div className="h-[90vh] md:h-[70vh] overflow-x-scroll">
+        <div className="h-[90vh] md:h-[70vh] overflow-y-scroll">
           {users.map((user, index) => (
             <Users key={index} user={user} />
           ))}

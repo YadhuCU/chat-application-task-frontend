@@ -5,6 +5,7 @@ const chatUsersSlice = createSlice({
   initialState: {
     users: [],
     currentChatUser: {},
+    showChat: false,
   },
   reducers: {
     addUsers: (state, action) => {
@@ -25,8 +26,6 @@ const chatUsersSlice = createSlice({
           item.chatUser == action.payload.room ||
           item.chatUser == action.payload.author,
       );
-      console.log("addMessage, currChatUser", currChatUser);
-      console.log("addMessage, action", action.payload);
       if (currChatUser) {
         currChatUser.messages.push(action.payload);
       } else {
@@ -36,9 +35,12 @@ const chatUsersSlice = createSlice({
         });
       }
     },
+    toggleShowChat: (state) => {
+      state.showChat = !state.showChat;
+    },
   },
 });
 
-export const { addUsers, addCurrentChatUser, addMessage } =
+export const { addUsers, addCurrentChatUser, addMessage, toggleShowChat } =
   chatUsersSlice.actions;
 export default chatUsersSlice.reducer;

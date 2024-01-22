@@ -17,7 +17,7 @@ export const Login = () => {
     navigate("/home");
   };
   return (
-    <div className="max-w-[500px] grid gap-2 p-5 text-stone-800 bg-gradient-to-r from-cyan-100 to-cyan-200 rounded-[5px] shadow-lg shadow-slate-200">
+    <div className="max-w-[500px] grid gap-2 p-5 text-stone-800 shadow-lg shadow-pink-200 bg-gradient-to-r from-pink-100 to-violet-100 rounded-[5px] shadow-lg shadow-slate-200">
       <input
         ref={inputRef}
         type="text"
@@ -29,7 +29,7 @@ export const Login = () => {
       <div className="flex justify-center items-center">
         <button
           onClick={handleLogin}
-          className="px-3 py-1 bg-cyan-300 hover:shadow-lg hover:shadow-cyan-700 rounded-[5px]"
+          className="px-3 py-1 bg-pink-300 hover:shadow-lg hover:shadow-pink-700 rounded-[5px]"
         >
           Login
         </button>

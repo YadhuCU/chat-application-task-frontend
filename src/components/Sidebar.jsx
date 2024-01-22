@@ -14,7 +14,7 @@ export const Sidebar = ({ socket }) => {
   const dispatch = useDispatch();
   const newUserRef = useRef(null);
 
-  const { users } = useSelector((state) => state.chatUsersSlice);
+  const { users, showChat } = useSelector((state) => state.chatUsersSlice);
 
   useEffect(() => {
     const userName = localStorage.getItem("userName");
@@ -22,11 +22,10 @@ export const Sidebar = ({ socket }) => {
     socket.emit("join_room", userName);
   }, []);
 
-  const handleAdd = async () => {
+  const handleAdd = () => {
     setShow(false);
     dispatch(addUsers({ chatUser: newUser, messages: [] }));
     setNewUser("");
-    console.log("users", users);
   };
 
   const handleCancel = () => {
@@ -40,10 +39,14 @@ export const Sidebar = ({ socket }) => {
   };
 
   return (
-    <div className="relative flex flex-col shadow-lg rounded-[10px] overflow-hidden bg-gradient-to-r from-pink-100 to-violet-100">
+    <div
+      className={` ${
+        showChat && "hidden"
+      } relative md:flex flex-col shadow-lg rounded-[10px] overflow-hidden bg-gradient-to-r from-pink-100 to-violet-100`}
+    >
       <Navbar user={user} />
       {!show ? (
-        <div className="max-h-[90vh] md:max-h-[70vh] overflow-x-scroll">
+        <div className="h-[90vh] md:h-[70vh] overflow-x-scroll">
           {users.map((user, index) => (
             <Users key={index} user={user} />
           ))}
